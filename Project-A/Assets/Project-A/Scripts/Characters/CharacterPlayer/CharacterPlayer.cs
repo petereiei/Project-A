@@ -14,6 +14,7 @@ public class CharacterPlayer : Character
     public void Init()
     {
         characterAnimator.Init(this);
+        characterControl.Init(this);
     }
 
     public override string GetAnimatorId()
