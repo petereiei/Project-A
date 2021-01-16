@@ -13,11 +13,17 @@ public class CharacterPlayer : Character
 
     public void Init()
     {
+        DeregisterEvent();
+
         characterAnimator.Init(this);
+        characterControl.Init(this);
+
+        onMove += characterAnimator.Move;
+        onJump += characterAnimator.Jump;
     }
 
     public override string GetAnimatorId()
     {
-        return "UnityChan";
+        return "unitychan_dynamic_locomotion";
     }
 }
