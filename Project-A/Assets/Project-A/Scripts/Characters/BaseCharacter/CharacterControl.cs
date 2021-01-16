@@ -62,7 +62,11 @@ public class CharacterControl : MonoBehaviour
             return;
 
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+
+        character.onJump?.Invoke(true);
     }
+
+    private bool jump;
 
     private void OnFall()
     {
@@ -71,8 +75,13 @@ public class CharacterControl : MonoBehaviour
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
+            jump = true;
         }
-
+        if (jump && !isGrounded)
+        {
+            jump = false;
+            character.characterAnimator.Jump(jump);
+        }
 
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
@@ -91,16 +100,9 @@ public class CharacterControl : MonoBehaviour
             z = direction.y
         }.normalized;
 
-        Debug.Log($"direction: {direction}");
-        if (direction != Vector3.zero)
-        {
-            gameObject.transform.forward = direction;
-        }
-
-        //rigidBody.MovePosition(rigidBody.position + direction * MoveDistancePerFrame());
         characterController.Move(direction * MoveDistancePerFrame());
 
-        character.onMove?.Invoke(transform.position);
+        character.onMove?.Invoke(new Vector2() { x = direction.x, y = direction.z});
     }
 
     private float MoveDistancePerFrame()

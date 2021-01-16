@@ -1,12 +1,13 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
+﻿using System;
+using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
     public CharacterAnimator characterAnimator;
     public CharacterControl characterControl;
 
-    public UnityEvent<Vector3> onMove;
+    public Action<Vector2> onMove;
+    public Action<bool> onJump;
 
     public abstract string GetAnimatorId();
 
@@ -18,5 +19,6 @@ public abstract class Character : MonoBehaviour
     protected void DeregisterEvent()
     {
         onMove = null;
+        onJump = null;
     }
 }
