@@ -29,7 +29,6 @@ public class CharacterAnimator : MonoBehaviour
 
     public void Move(Vector2 direction)
     {
-        Debug.Log($"X: {direction.x}  Y: {direction.y}");
         animator.SetFloat("Speed", direction.y);
         animator.SetFloat("Direction", direction.x);
 

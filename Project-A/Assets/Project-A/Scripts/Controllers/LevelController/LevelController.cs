@@ -15,6 +15,7 @@ public class LevelController : MonoSingleton<LevelController>
         }
 
         GetCharcter();
+        
     }
 
     private void GetCharcter()
@@ -25,5 +26,13 @@ public class LevelController : MonoSingleton<LevelController>
         charcterPlayer.transform.localScale = Vector3.one;
 
         charcterPlayer.Init();
+
+        GenerateCamera(charcterPlayer);
+    }
+
+    private void GenerateCamera(Character character)
+    {
+        var CameraFollow = Instantiate(Resources.Load<CameraFollow>("Prefabs/Cameras/CameraFollow"), transform);
+        CameraFollow.Init(character);
     }
 }
